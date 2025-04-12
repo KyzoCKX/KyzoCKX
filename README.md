@@ -23,5 +23,7 @@ APIs: CoinGecko, TradingView, Firebase, REST APIs, Binance
 Whether you're looking to collaborate on innovative software projects, dive into AI-powered systems, or simply exchange ideas—I'm open to it! Feel free to explore my repositories, raise issues, or reach out!
 
 kyzockx@gmail.com
+
 www.linkedin.com/in/kyzo-chan-2bb39a287
-https;//predictions.kyzo.site
+
+https://predictions.kyzo.site
