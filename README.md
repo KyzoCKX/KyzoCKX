@@ -1,4 +1,5 @@
 👋 About Me
+
 Hi there! I'm Kyzo Chan, a passionate and innovative Software Engineer with a strong focus on building intelligent systems that make a real impact. I specialize in backend development, AI-driven prediction systems, and full-stack web applications. My work thrives at the intersection of data, automation, and user experience, and I'm always exploring new technologies to bring ideas to life. Recently, I am  focusing on real-world, data-driven applications—especially in fintech, cloud systems, and predictive modeling.
 
 🚀 What I’m Working On
