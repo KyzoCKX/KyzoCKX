@@ -405,20 +405,47 @@
 
         // Time counter
         function updateTimeCounter() {
-            const startDate = new Date('2022-10-23T00:00:00+08:00');
-            const now = new Date();
-            const timeDiff = now - startDate;
+            const startDateString = '2022-10-23T00:00:00+08:00';
+            const startDate = new Date(startDateString);
+            const now = new Date(); // Current time: Friday, July 18, 2025 at 12:23:07 AM +08
 
-            const seconds = Math.floor(timeDiff / 1000);
-            const minutes = Math.floor(seconds / 60);
-            const hours = Math.floor(minutes / 60);
-            const days = Math.floor(hours / 24);
+            // --- NEW LOGIC FOR 'days' ---
 
-            const remainingHours = hours % 24;
-            const remainingMinutes = minutes % 60;
-            const remainingSeconds = seconds % 60;
+            // 1. Create new Date objects that represent the *start of the day* for both dates.
+            //    This effectively removes the time component (hours, minutes, seconds)
+            //    so we're only comparing calendar dates.
+            const startOfDayStartDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+            const startOfDayNow = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-            document.getElementById('timeCounter').textContent = 
+            // 2. Calculate the difference in milliseconds between these two 'start-of-day' dates.
+            const diffInMsForDays = startOfDayNow.getTime() - startOfDayStartDate.getTime();
+
+            // 3. Define one day in milliseconds.
+            const oneDayInMs = 1000 * 60 * 60 * 24;
+
+            // 4. Calculate the number of *full calendar days* that have passed.
+            //    Math.floor ensures we get a whole number.
+            const calendarDaysElapsed = Math.floor(diffInMsForDays / oneDayInMs);
+
+            // 5. Add 1 to this result. This accounts for the fact that the *first day* is Day 1,
+            //    and each subsequent calendar day increments the count by 1.
+            //    This is what gives you the '1000 days' you expect.
+            const days = calendarDaysElapsed + 1;
+
+
+            // --- ORIGINAL LOGIC FOR REMAINING TIME (from the current day) ---
+            // Now, calculate the time that has passed *within the current day*.
+            // We use 'now' and 'startOfDayNow' for this.
+            const elapsedTodayMs = now.getTime() - startOfDayNow.getTime();
+
+            const totalSecondsToday = Math.floor(elapsedTodayMs / 1000);
+
+            const remainingHours = Math.floor(totalSecondsToday / (60 * 60)); // Total hours past midnight
+            const remainingMinutes = Math.floor(totalSecondsToday / 60) % 60; // Minutes past the last full hour
+            const remainingSeconds = totalSecondsToday % 60; // Seconds past the last full minute
+
+
+            document.getElementById('timeCounter').textContent =
                 `${days} days, ${remainingHours} hours, ${remainingMinutes} minutes, ${remainingSeconds} seconds`;
         }
 
